@@ -1,0 +1,22 @@
+[1m==============================================================================[0m
+[1mConflict #1 in [36mmyapp/views.py[0m (Lines 10-16)
+[1m==============================================================================[0m
+
+[1mOURS (Current Branch / HEAD):[0m
+  Commit:      [36mc4b12e8[0m (Django Maintainer <core@djangoproject.com>) - 2026-10-25
+  Environment: [1m[44m[37m UAT [0m
+  Testing:     [32m✔ PASSED[0m (Suite: django-tests)
+  Message:     [2m[4.2.x] Hotfix: Preserve fast indexed lookup for stable release[0m
+
+[1mTHEIRS (Incoming Branch):[0m
+  Commit:      [36m6e1a49f[0m (ORM Team <orm@djangoproject.com>) - 2026-10-26
+  Environment: [1m[42m[37m PROD [0m
+  Testing:     [32m✔ PASSED[0m (Suite: django-tests-full, Cov: 98.4%)
+  Backport:    [33mDjango #34567 (Upstream: 6e1a49f)[0m
+  Message:     [2m[4.2.x] Fixed #34567 -- Corrected outer join order in ORM query compiler.[0m
+
+[1mIntelligent Provenance Recommendation:[0m
+  Strategy:    [32mTHEIRS[0m
+  Confidence:  [1m94.0%[0m
+  Engine:      Deterministic-Semantic-AST
+  Rationale:   Accepted THEIRS: Verified backport fix (Django #34567 (Upstream: 6e1a49f)) with passing tests in PRODUCTION.

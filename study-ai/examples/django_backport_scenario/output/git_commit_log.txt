@@ -1,0 +1,14 @@
+commit 9a8f112e4b6c
+Author: Django Release Bot <bot@djangoproject.com>
+Date:   Mon Oct 26 15:00:00 2026 +0000
+
+    Merge backport of #34567 into stable/4.2.x
+
+    Resolved with git-provenance v1.0.0
+    Resolution Strategy: theirs
+    Verified Testing Provenance: django-tests-full (Coverage: 98.4%)
+
+    X-Conflict-Resolved-With: git-provenance-v1.0.0
+    X-Provenance-Verified: True
+    X-Original-Ticket: Django #34567
+    X-Upstream-Commit: 6e1a49f

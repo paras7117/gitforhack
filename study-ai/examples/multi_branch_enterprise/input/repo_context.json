@@ -1,0 +1,25 @@
+{
+  "scenario": "Enterprise Multi-Branch Topology Conflict",
+  "branches": ["production", "uat", "development", "feature/async-webhooks"],
+  "target_branch": "uat",
+  "commits": {
+    "HEAD": {
+      "hash": "1f8e3a2b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f",
+      "author": "SecOps Engineer <security@fintech.io>",
+      "message": "fix(pci): Idempotent exponential retry for timeout failures\n\nX-Environment: production\nX-Test-Status: PASSED\nX-Test-Suite: pci-compliance-e2e\nX-CI-Run: 8921\nX-Coverage: 100%",
+      "environment": "PRODUCTION",
+      "test_status": "PASSED",
+      "suite": "pci-compliance-e2e",
+      "ci_run": "8921",
+      "coverage": 100.0
+    },
+    "feature/async-webhooks": {
+      "hash": "9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d",
+      "author": "Junior Dev <intern@fintech.io>",
+      "message": "feat(payments): Draft async webhook queue",
+      "environment": "UNVERIFIED",
+      "test_status": "UNTESTED",
+      "suite": "none"
+    }
+  }
+}
