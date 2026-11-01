@@ -1,0 +1,62 @@
+{
+  "file_path": "Lib/asyncio/proactor_events.py",
+  "hunk_index": 0,
+  "start_line": 12,
+  "end_line": 22,
+  "provenance_ours": {
+    "commit_hash": "8f12c9a10123456789abcdef123456789abcdef0",
+    "short_hash": "8f12c9a",
+    "author_name": "CPython Core Dev <python-dev@python.org>",
+    "author_email": "python-dev@python.org",
+    "date": "2026-10-28T09:00:00Z",
+    "message": "Update 3.12 proactor internal flags",
+    "branches": [],
+    "environment": "DEVELOPMENT",
+    "test_attestation": {
+      "status": "UNTESTED",
+      "suite_name": "default",
+      "ci_run_id": null,
+      "ci_url": null,
+      "coverage_pct": null,
+      "passed_tests": 0,
+      "failed_tests": 0,
+      "timestamp": null,
+      "signer": null
+    },
+    "patch_id": null,
+    "cherry_pick_origin": null,
+    "backport_references": [],
+    "is_production_tested": false
+  },
+  "provenance_theirs": {
+    "commit_hash": "7a82b9e6fa436c0a0c441b8a514dcf50db9011f0",
+    "short_hash": "7a82b9e",
+    "author_name": "Miss Islington (bot) <miss-islington@python.org>",
+    "author_email": "miss-islington@python.org",
+    "date": "2026-10-28T11:15:00Z",
+    "message": "[3.12] gh-108278: Disallow nested asyncio event loops on Windows (GH-108300)\n\n(cherry picked from commit 7a82b9e6fa436c0a0c441b8a514dcf50db9011f0)",
+    "branches": [],
+    "environment": "PRODUCTION",
+    "test_attestation": {
+      "status": "PASSED",
+      "suite_name": "test_asyncio",
+      "ci_run_id": null,
+      "ci_url": null,
+      "coverage_pct": 99.1,
+      "passed_tests": 0,
+      "failed_tests": 0,
+      "timestamp": null,
+      "signer": null
+    },
+    "patch_id": null,
+    "cherry_pick_origin": "7a82b9e6fa436c0a0c441b8a514dcf50db9011f0",
+    "backport_references": [
+      "CPython gh-108278 (PR #108300)"
+    ],
+    "is_production_tested": false
+  },
+  "recommendation": "theirs",
+  "confidence_score": 0.94,
+  "rationale": "Accepted THEIRS: Verified backport fix (CPython gh-108278 (PR #108300)) with passing tests in PRODUCTION.",
+  "ai_model_used": "Deterministic-Semantic-AST"
+}

@@ -1,0 +1,23 @@
+[1m==============================================================================[0m
+[1mConflict #1 in [36mLib/asyncio/proactor_events.py[0m (Lines 12-22)
+[1m==============================================================================[0m
+
+[1mOURS (Current Branch / HEAD):[0m
+  Commit:      [36m8f12c9a[0m (CPython Core Dev <python-dev@python.org>) - 2026-10-28
+  Environment: [33m DEV [0m
+  Testing:     [33m⚠ UNTESTED[0m (Suite: default)
+  Message:     [2mUpdate 3.12 proactor internal flags[0m
+
+[1mTHEIRS (Incoming Branch):[0m
+  Commit:      [36m7a82b9e[0m (Miss Islington (bot) <miss-islington@python.org>) - 2026-10-28
+  Environment: [1m[42m[37m PROD [0m
+  Testing:     [32m✔ PASSED[0m (Suite: test_asyncio, Cov: 99.1%)
+  Origin:      Cherry-picked from [35m7a82b9e6[0m
+  Backport:    [33mCPython gh-108278 (PR #108300)[0m
+  Message:     [2m[3.12] gh-108278: Disallow nested asyncio event loops on Windows (GH-108300)[0m
+
+[1mIntelligent Provenance Recommendation:[0m
+  Strategy:    [32mTHEIRS[0m
+  Confidence:  [1m94.0%[0m
+  Engine:      Deterministic-Semantic-AST
+  Rationale:   Accepted THEIRS: Verified backport fix (CPython gh-108278 (PR #108300)) with passing tests in PRODUCTION.

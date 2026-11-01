@@ -1,0 +1,16 @@
+commit 7a82b9e6fa436c0a0c441b8a514dcf50db9011f0
+Author: Miss Islington (bot) <miss-islington@python.org>
+Date:   Wed Oct 28 11:30:00 2026 +0000
+
+    [3.12] gh-108278: Disallow nested asyncio event loops on Windows (GH-108300)
+
+    (cherry picked from commit 7a82b9e6fa436c0a0c441b8a514dcf50db9011f0)
+
+    Resolved with git-provenance v1.0.0
+    Resolution Strategy: theirs
+    Verified Testing Provenance: test_asyncio (Coverage: 99.1%)
+
+    X-Conflict-Resolved-With: git-provenance-v1.0.0
+    X-Provenance-Verified: True
+    X-Issue: gh-108278
+    X-Upstream-PR: GH-108300

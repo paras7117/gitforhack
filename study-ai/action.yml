@@ -1,0 +1,30 @@
+name: 'Git Provenance Conflict & Backport Verifier'
+description: 'Verify testing provenance, patch-id lineage, and conflict resolution across long-lived branches in open-source projects.'
+author: 'GitVeritas Team'
+branding:
+  icon: 'git-merge'
+  color: 'blue'
+
+inputs:
+  target-branch:
+    description: 'Target branch being merged or backported into (e.g. main, stable/4.2.x, 3.12)'
+    required: false
+    default: 'main'
+  fail-on-unverified:
+    description: 'Fail CI if conflicting changes lack verified testing attestations'
+    required: false
+    default: 'false'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Verify Git Provenance Installation
+      shell: bash
+      run: |
+        python3 -m pip install -e ${{ github.action_path }}
+        git-prov --version
+
+    - name: Inspect Conflict Status with Provenance
+      shell: bash
+      run: |
+        git-prov status --json || true

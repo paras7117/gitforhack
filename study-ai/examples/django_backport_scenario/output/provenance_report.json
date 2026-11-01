@@ -1,0 +1,62 @@
+{
+  "file_path": "myapp/views.py",
+  "hunk_index": 0,
+  "start_line": 10,
+  "end_line": 16,
+  "provenance_ours": {
+    "commit_hash": "c4b12e891234567890abcdef1234567890abcdef",
+    "short_hash": "c4b12e8",
+    "author_name": "Django Maintainer <core@djangoproject.com>",
+    "author_email": "core@djangoproject.com",
+    "date": "2026-10-25T12:00:00Z",
+    "message": "[4.2.x] Hotfix: Preserve fast indexed lookup for stable release",
+    "branches": [],
+    "environment": "UAT",
+    "test_attestation": {
+      "status": "PASSED",
+      "suite_name": "django-tests",
+      "ci_run_id": null,
+      "ci_url": null,
+      "coverage_pct": null,
+      "passed_tests": 0,
+      "failed_tests": 0,
+      "timestamp": null,
+      "signer": null
+    },
+    "patch_id": null,
+    "cherry_pick_origin": null,
+    "backport_references": [],
+    "is_production_tested": false
+  },
+  "provenance_theirs": {
+    "commit_hash": "6e1a49f82d3b567890abcdef1234567890abcdef",
+    "short_hash": "6e1a49f",
+    "author_name": "ORM Team <orm@djangoproject.com>",
+    "author_email": "orm@djangoproject.com",
+    "date": "2026-10-26T14:30:00Z",
+    "message": "[4.2.x] Fixed #34567 -- Corrected outer join order in ORM query compiler.\nBackport of 6e1a49f from main.",
+    "branches": [],
+    "environment": "PRODUCTION",
+    "test_attestation": {
+      "status": "PASSED",
+      "suite_name": "django-tests-full",
+      "ci_run_id": null,
+      "ci_url": null,
+      "coverage_pct": 98.4,
+      "passed_tests": 0,
+      "failed_tests": 0,
+      "timestamp": null,
+      "signer": null
+    },
+    "patch_id": null,
+    "cherry_pick_origin": null,
+    "backport_references": [
+      "Django #34567 (Upstream: 6e1a49f)"
+    ],
+    "is_production_tested": false
+  },
+  "recommendation": "theirs",
+  "confidence_score": 0.94,
+  "rationale": "Accepted THEIRS: Verified backport fix (Django #34567 (Upstream: 6e1a49f)) with passing tests in PRODUCTION.",
+  "ai_model_used": "Deterministic-Semantic-AST"
+}

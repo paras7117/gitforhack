@@ -1,0 +1,21 @@
+[1m==============================================================================[0m
+[1mConflict #1 in [36mservices/payment_service.py[0m (Lines 14-28)
+[1m==============================================================================[0m
+
+[1mOURS (Current Branch / HEAD):[0m
+  Commit:      [36m1f8e3a2[0m (SecOps Engineer <security@fintech.io>) - 2026-10-31
+  Environment: [1m[42m[37m PROD [0m
+  Testing:     [32m✔ PASSED[0m (Suite: pci-compliance-e2e, CI: #8921, Cov: 100.0%)
+  Message:     [2mfix(pci): Idempotent exponential retry for timeout failures[0m
+
+[1mTHEIRS (Incoming Branch):[0m
+  Commit:      [36m9e8d7c6[0m (Junior Dev <intern@fintech.io>) - 2026-10-31
+  Environment: [1m[41m[37m UNVERIFIED [0m
+  Testing:     [33m⚠ UNTESTED[0m (Suite: default)
+  Message:     [2mfeat(payments): Draft async webhook queue[0m
+
+[1mIntelligent Provenance Recommendation:[0m
+  Strategy:    [32mOURS[0m
+  Confidence:  [1m92.0%[0m
+  Engine:      Deterministic-Semantic-AST
+  Rationale:   Preserved OURS: Change has higher deployment provenance (PRODUCTION) with verified passing test suite.

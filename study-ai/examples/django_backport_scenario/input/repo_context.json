@@ -1,0 +1,24 @@
+{
+  "scenario": "Django 4.2.x Backport Conflict",
+  "base_branch": "stable/4.2.x",
+  "source_branch": "main",
+  "commits": {
+    "HEAD": {
+      "hash": "c4b12e891234567890abcdef1234567890abcdef",
+      "author": "Django Maintainer <core@djangoproject.com>",
+      "message": "[4.2.x] Hotfix: Preserve fast indexed lookup for stable release",
+      "environment": "UAT",
+      "test_status": "PASSED",
+      "suite": "django-tests"
+    },
+    "main-backport": {
+      "hash": "6e1a49f82d3b567890abcdef1234567890abcdef",
+      "author": "ORM Team <orm@djangoproject.com>",
+      "message": "[4.2.x] Fixed #34567 -- Corrected outer join order in ORM query compiler.\nBackport of 6e1a49f from main.",
+      "environment": "PRODUCTION",
+      "test_status": "PASSED",
+      "suite": "django-tests-full",
+      "coverage": 98.4
+    }
+  }
+}

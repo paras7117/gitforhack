@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GIT-PROVENANCE // AVANT-GARDE CYBER STUDIO</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            void: '#000000',
+            panel: '#070707',
+            surface: '#0d0d0d',
+            vermillion: {
+              DEFAULT: '#FF2A1B',
+              glow: 'rgba(255, 42, 27, 0.5)',
+              dim: '#8A150D',
+              light: '#FF5C4D'
+            },
+            cyber: {
+              DEFAULT: '#00FF66',
+              glow: 'rgba(0, 255, 102, 0.5)',
+              dim: '#007A31',
+              light: '#5CFF9D'
+            }
+          },
+          fontFamily: {
+            mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+            sans: ['Space Grotesk', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Space+Grotesk:wght@400;600;700;900&display=swap');
+
+    :root {
+      --vermillion: #FF2A1B;
+      --cyber: #00FF66;
+      --black: #000000;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #000000;
+      color: #F0F0F0;
+      font-family: 'Space Grotesk', -apple-system, sans-serif;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Scanline Overlay for Cyber Vibe */
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.45) 50%);
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 40;
+      opacity: 0.25;
+    }
+
+    /* Cyber Claymorphism + Glassmorphism Hybrid */
+    .cyber-card {
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1.5rem;
+      box-shadow: 
+        10px 10px 25px rgba(0, 0, 0, 0.9), 
+        -5px -5px 15px rgba(255, 255, 255, 0.03),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.12),
+        inset -1px -1px 3px rgba(0, 0, 0, 0.8);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .cyber-card:hover {
+      border-color: rgba(0, 255, 102, 0.4);
+      box-shadow: 
+        0 0 30px rgba(0, 255, 102, 0.15),
+        14px 14px 30px rgba(0, 0, 0, 0.95),
+        inset 1px 1px 3px rgba(0, 255, 102, 0.3);
+      transform: translateY(-3px);
+    }
+
+    .cyber-card-vermillion:hover {
+      border-color: rgba(255, 42, 27, 0.5);
+      box-shadow: 
+        0 0 30px rgba(255, 42, 27, 0.2),
+        14px 14px 30px rgba(0, 0, 0, 0.95),
+        inset 1px 1px 3px rgba(255, 42, 27, 0.3);
+    }
+
+    /* Avant-Garde Tactile Clay Buttons */
+    .cyber-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      border-radius: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: linear-gradient(135deg, #141414 0%, #080808 100%);
+      box-shadow: 
+        6px 6px 14px rgba(0, 0, 0, 0.8),
+        -3px -3px 8px rgba(255, 255, 255, 0.04),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.18),
+        inset -1px -1px 3px rgba(0, 0, 0, 0.7);
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .cyber-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        8px 8px 18px rgba(0, 0, 0, 0.9),
+        -4px -4px 10px rgba(255, 255, 255, 0.08),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.3);
+      border-color: #00FF66;
+      color: #00FF66;
+    }
+    .cyber-btn:active {
+      transform: translateY(2px) scale(0.97);
+      box-shadow: 
+        inset 4px 4px 8px rgba(0, 0, 0, 0.9),
+        inset -2px -2px 4px rgba(255, 255, 255, 0.1);
+    }
+
+    /* Cyber-Green Neon Button */
+    .cyber-btn-green {
+      background: linear-gradient(135deg, #00FF66 0%, #00993D 100%);
+      color: #000000;
+      border: 1px solid #70FFAC;
+      box-shadow: 0 0 25px rgba(0, 255, 102, 0.4), inset 2px 2px 4px rgba(255, 255, 255, 0.4);
+    }
+    .cyber-btn-green:hover {
+      background: linear-gradient(135deg, #33FF85 0%, #00B347 100%);
+      box-shadow: 0 0 35px rgba(0, 255, 102, 0.7), inset 2px 2px 4px rgba(255, 255, 255, 0.6);
+      color: #000000;
+    }
+
+    /* Vermillion / Coral Red Button */
+    .cyber-btn-red {
+      background: linear-gradient(135deg, #FF2A1B 0%, #A31005 100%);
+      color: #FFFFFF;
+      border: 1px solid #FF8075;
+      box-shadow: 0 0 25px rgba(255, 42, 27, 0.4), inset 2px 2px 4px rgba(255, 255, 255, 0.4);
+    }
+    .cyber-btn-red:hover {
+      background: linear-gradient(135deg, #FF4D40 0%, #CC1507 100%);
+      box-shadow: 0 0 35px rgba(255, 42, 27, 0.7), inset 2px 2px 4px rgba(255, 255, 255, 0.6);
+      color: #FFFFFF;
+    }
+
+    /* Inputs with cyber glow */
+    .cyber-input {
+      background: #050505;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 0.85rem;
+      color: #00FF66;
+      font-family: 'JetBrains Mono', monospace;
+      outline: none;
+      box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.8);
+      transition: all 0.2s;
+    }
+    .cyber-input:focus {
+      border-color: #00FF66;
+      box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 255, 102, 0.3);
+    }
+
+    /* Scroll Visibility Increase Effect (Scroll-Triggered Reveal) */
+    .reveal-on-scroll {
+      opacity: 0.15;
+      transform: translateY(40px) scale(0.97);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: blur(4px);
+    }
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0px) scale(1);
+      filter: blur(0px);
+    }
+
+    /* High Tech Reticle Animation */
+    @keyframes pulseRing {
+      0% { transform: scale(0.9); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 0.2; }
+      100% { transform: scale(0.9); opacity: 0.8; }
+    }
+    .pulse-ring {
+      animation: pulseRing 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    /* Custom Code Scrollbars */
+    pre::-webkit-scrollbar, textarea::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    pre::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-thumb {
+      background: #00FF66;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="bg-black text-slate-100 selection:bg-cyber selection:text-black">
+
+  <!-- Scanline CRT Effect -->
+  <div class="scanlines"></div>
+
+  <!-- Background Moving Canvas Particles / Wireframe Grid -->
+  <canvas id="cyberCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-70"></canvas>
+
+  <!-- ============================================================== -->
+  <!-- 1. FULLSCREEN 2-SECOND INTRO & CLICK-TO-ENTER PAUSE SCREEN      -->
+  <!-- ============================================================== -->
+  <div id="introPauseOverlay" class="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center p-6 text-center select-none cursor-pointer overflow-hidden transition-all duration-700">
+    
+    <!-- Cyber Geometric Rings -->
+    <div class="relative flex items-center justify-center mb-8">
+      <div class="w-48 h-48 md:w-64 md:h-64 rounded-full border-2 border-dashed border-vermillion/40 absolute pulse-ring"></div>
+      <div class="w-40 h-40 md:w-52 md:h-52 rounded-full border border-cyber/50 absolute animate-spin" style="animation-duration: 12s;"></div>
+      <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-2 border-vermillion flex items-center justify-center shadow-[0_0_50px_rgba(255,42,27,0.7)] bg-black/80">
+        <span class="text-4xl md:text-5xl font-black text-cyber font-mono tracking-tighter">⎇</span>
+      </div>
+    </div>
+
+    <!-- Intro Stage Text (0s to 2s) -->
+    <div id="introBootPhase" class="space-y-3 font-mono">
+      <div class="flex items-center justify-center gap-2 text-vermillion text-xs font-bold uppercase tracking-widest animate-pulse">
+        <span class="w-2.5 h-2.5 rounded-full bg-vermillion"></span>
+        <span>SYS_INIT // BOOTING PROVENANCE ENGINE</span>
+      </div>
+      <div class="text-xs text-cyber font-mono" id="introBootLog">
+        > MOUNTING AST_SEMANTIC_ENGINE... [OK]<br>
+        > LOADING PATCH_ID_STABLE PROTOCOL... [OK]<br>
+        > CALIBRATING GIT NOTES PROVENANCE LEDGER... [OK]
+      </div>
+      <div class="w-64 h-1.5 bg-neutral-900 rounded-full mx-auto overflow-hidden mt-3">
+        <div id="bootProgressBar" class="h-full bg-gradient-to-r from-vermillion to-cyber w-0 transition-all duration-1000 ease-out"></div>
+      </div>
+    </div>
+
+    <!-- Pause Screen Stage (Visible after 2s until user clicks) -->
+    <div id="pauseScreenPhase" class="hidden space-y-5">
+      <div class="inline-block px-4 py-1.5 rounded-full bg-vermillion/10 border border-vermillion/40 text-vermillion text-xs font-mono uppercase tracking-widest animate-bounce">
+        ⏸ SYSTEM PAUSED // STANDBY MODE
+      </div>
+      <h1 class="text-3xl md:text-5xl font-black tracking-tighter text-white uppercase font-sans">
+        GIT-PROVENANCE <span class="text-cyber">v1.0</span>
+      </h1>
+      <p class="text-xs md:text-sm font-mono text-slate-400 max-w-md mx-auto">
+        Intelligent conflict resolution with testing provenance & cross-branch lineage.
+      </p>
+
+      <!-- Pulsing Action Trigger -->
+      <div class="pt-6">
+        <div class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-vermillion to-cyber text-black font-black font-mono text-sm uppercase tracking-wider shadow-[0_0_40px_rgba(0,255,102,0.6)] hover:scale-105 active:scale-95 transition-all">
+          <span>⚡ CLICK ANYWHERE TO ENTER STUDIO</span>
+        </div>
+        <p class="text-[11px] font-mono text-slate-500 mt-3">AUDIO SYNTHESIZER & HUD ACCELERATION WILL ACTIVATE</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MAIN APPLICATION CONTENT (REVEALED AFTER CLICK)                -->
+  <!-- ============================================================== -->
+  <div id="mainApp" class="relative z-10 opacity-0 transition-opacity duration-1000 min-h-screen pb-24">
+
+    <!-- Top Sticky Cyber HUD Navigation -->
+    <header class="sticky top-0 z-30 bg-black/90 backdrop-blur-xl border-b border-neutral-900 px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-vermillion to-cyber flex items-center justify-center font-mono font-black text-black shadow-[0_0_20px_rgba(0,255,102,0.4)]">
+          ⎇
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-black tracking-tight text-white font-sans text-xl">git-provenance</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cyber/10 text-cyber border border-cyber/30">ONLINE</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-vermillion/10 text-vermillion border border-vermillion/30">PROD-SHIELD</span>
+          </div>
+          <p class="text-[11px] font-mono text-slate-400">Hacktoberfest 2026 // Problem 01: Testing Provenance Conflict Engine</p>
+        </div>
+      </div>
+
+      <!-- Live Controls -->
+      <div class="flex items-center gap-3">
+        <button id="soundToggleBtn" onclick="toggleSound()" class="cyber-btn px-4 py-2 text-xs flex items-center gap-2 text-slate-300">
+          <span id="soundIcon">🔊</span>
+          <span id="soundLabel">AUDIO FX: ON</span>
+        </button>
+
+        <button onclick="scrollToSection('section-studio')" class="cyber-btn cyber-btn-green px-5 py-2 text-xs font-black flex items-center gap-2">
+          <span>⚡</span>
+          <span>SOLVE CONFLICTS</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Hub (Clickable Buttons Across Entire Site) -->
+    <nav class="max-w-7xl mx-auto px-6 pt-6">
+      <div class="cyber-card p-3 flex flex-wrap gap-2 justify-center md:justify-start">
+        <button onclick="scrollToSection('section-hero')" class="cyber-btn px-4 py-2 text-xs text-slate-300">
+          01 // OVERVIEW
+        </button>
+        <button onclick="scrollToSection('section-studio')" class="cyber-btn px-4 py-2 text-xs text-cyber border-cyber/40">
+          02 // CONFLICT STUDIO
+        </button>
+        <button onclick="scrollToSection('section-lineage')" class="cyber-btn px-4 py-2 text-xs text-slate-300">
+          03 // TOPOLOGY & GRAPH
+        </button>
+        <button onclick="scrollToSection('section-attestation')" class="cyber-btn px-4 py-2 text-xs text-slate-300">
+          04 // GIT NOTES LEDGER
+        </button>
+        <button onclick="scrollToSection('section-patchid')" class="cyber-btn px-4 py-2 text-xs text-slate-300">
+          05 // PATCH-ID ENGINE
+        </button>
+        <button onclick="scrollToSection('section-terminal')" class="cyber-btn px-4 py-2 text-xs text-vermillion border-vermillion/40">
+          06 // CLI SIMULATOR
+        </button>
+        <button onclick="scrollToSection('section-benchmarks')" class="cyber-btn px-4 py-2 text-xs text-slate-300">
+          07 // BENCHMARKS
+        </button>
+      </div>
+    </nav>
+
+    <!-- ============================================================== -->
+    <!-- SECTION 1: HERO & AVANT-GARDE CYBER MANIFESTO                  -->
+    <!-- ============================================================== -->
+    <section id="section-hero" class="max-w-7xl mx-auto px-6 py-16 reveal-on-scroll is-visible">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-vermillion/10 border border-vermillion/30 text-vermillion text-xs font-mono font-bold tracking-widest uppercase">
+            <span>●</span>
+            <span>Zero Accidental Regressions In Production</span>
+          </div>
+
+          <h1 class="text-4xl md:text-6xl font-black tracking-tighter uppercase font-sans leading-none text-white">
+            STOP BLIND MERGES. <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-vermillion via-white to-cyber">
+              RESOLVE CONFLICTS WITH PROVENANCE.
+            </span>
+          </h1>
+
+          <p class="text-slate-300 text-sm md:text-base font-sans leading-relaxed max-w-xl">
+            Traditional Git conflict markers give you isolated text diffs in a vacuum. <strong class="text-white">git-provenance</strong> mines commit ancestry, branch topologies, and Git Notes to ensure production-tested fixes are protected from unverified experimental code.
+          </p>
+
+          <!-- High-Energy Metrics Grid -->
+          <div class="grid grid-cols-3 gap-4 pt-4">
+            <div class="cyber-card p-4 border-l-2 border-l-cyber">
+              <div class="text-2xl font-black font-mono text-cyber">100%</div>
+              <div class="text-[11px] font-mono text-slate-400 mt-1 uppercase">Git Compatible</div>
+            </div>
+            <div class="cyber-card p-4 border-l-2 border-l-vermillion">
+              <div class="text-2xl font-black font-mono text-vermillion">0.84s</div>
+              <div class="text-[11px] font-mono text-slate-400 mt-1 uppercase">Test Suite Run</div>
+            </div>
+            <div class="cyber-card p-4 border-l-2 border-l-white">
+              <div class="text-2xl font-black font-mono text-white">0</div>
+              <div class="text-[11px] font-mono text-slate-400 mt-1 uppercase">Vendor Lock-In</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Interactive Cyber Radar / Status Widget -->
+        <div class="lg:col-span-5">
+          <div class="cyber-card p-6 border-vermillion/30 space-y-5">
+            <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
+              <span class="font-mono text-xs text-cyber font-bold">PROVENANCE_HUD_v1.0</span>
+              <span class="w-2.5 h-2.5 rounded-full bg-cyber animate-ping"></span>
+            </div>
+
+            <div class="space-y-3 font-mono text-xs">
+              <div class="p-3 bg-neutral-950 rounded-xl border border-neutral-800 flex justify-between items-center">
+                <span class="text-slate-400">Environment Topology:</span>
+                <span class="text-cyber font-bold">PRODUCTION / UAT / DEV</span>
+              </div>
+              <div class="p-3 bg-neutral-950 rounded-xl border border-neutral-800 flex justify-between items-center">
+                <span class="text-slate-400">Active AI Engines:</span>
+                <span class="text-white font-bold">OpenAI GPT-4o + AST Engine</span>
+              </div>
+              <div class="p-3 bg-neutral-950 rounded-xl border border-neutral-800 flex justify-between items-center">
+                <span class="text-slate-400">Git Notes Ref:</span>
+                <span class="text-vermillion font-bold">refs/notes/test-provenance</span>
+              </div>
+            </div>
+
+            <button onclick="scrollToSection('section-studio')" class="cyber-btn cyber-btn-red w-full py-3 text-xs font-black uppercase tracking-wider">
+              ENTER CONFLICT STUDIO ➔
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION 2: THE CONFLICT RESOLUTION STUDIO (3-WAY LIVE WORKSPACE)-->
+    <!-- ============================================================== -->
+    <section id="section-studio" class="max-w-7xl mx-auto px-6 py-16 reveal-on-scroll">
+      
+      <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+        <div>
+          <div class="text-xs font-mono text-cyber uppercase tracking-widest font-bold">02 // WORKSPACE</div>
+          <h2 class="text-3xl md:text-4xl font-black uppercase text-white font-sans mt-1">
+            Intelligent Conflict Studio
+          </h2>
+          <p class="text-sm text-slate-400">Inspect full testing metadata and provenance for every conflicting hunk.</p>
+        </div>
+
+        <!-- Scenario Switcher -->
+        <div class="flex items-center gap-3">
+          <label class="text-xs font-mono text-slate-400 uppercase">Scenario:</label>
+          <select id="scenarioSelect" onchange="loadScenario(this.value)" class="cyber-input px-4 py-2 text-xs">
+            <option value="django">Django Security Backport (#34567)</option>
+            <option value="cpython">CPython Asyncio Loop Fix (gh-108278)</option>
+            <option value="enterprise">FinTech Enterprise Multi-Branch Hotfix</option>
+            <option value="custom">Custom Live Conflict Sandbox</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 3-Way Side-by-Side Diff Panels (OURS vs THEIRS) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+
+        <!-- Panel 1: OURS (HEAD Branch) -->
+        <div class="cyber-card p-6 border-l-4 border-l-vermillion cyber-card-vermillion">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-vermillion animate-pulse"></span>
+              <h3 class="font-mono font-bold text-white text-base">OURS (HEAD / Current Branch)</h3>
+            </div>
+            <span id="oursEnvBadge" class="px-2.5 py-1 rounded-md text-xs font-mono font-black bg-vermillion/20 text-vermillion border border-vermillion/40">
+              UAT / STAGING
+            </span>
+          </div>
+
+          <!-- Metadata Spec -->
+          <div class="bg-neutral-950 p-4 rounded-xl border border-neutral-800 text-xs font-mono space-y-1.5 mb-4">
+            <div class="flex justify-between"><span class="text-slate-400">Commit SHA:</span> <span id="oursHash" class="text-white">c4b12e89</span></div>
+            <div class="flex justify-between"><span class="text-slate-400">Author:</span> <span id="oursAuthor" class="text-slate-300">Django Maintainer</span></div>
+            <div class="flex justify-between"><span class="text-slate-400">Test Attestation:</span> <span id="oursTestBadge" class="text-vermillion font-bold">✔ PASSED (django-tests)</span></div>
+            <div class="flex justify-between"><span class="text-slate-400">Intent:</span> <span id="oursMsg" class="text-slate-300 truncate max-w-[200px]">[4.2.x] Hotfix fast lookup</span></div>
+          </div>
+
+          <!-- Code Box -->
+          <pre class="bg-black p-4 rounded-xl border border-neutral-800 font-mono text-xs text-vermillion-light overflow-x-auto min-h-[140px] leading-relaxed"><code id="codeOurs">orders = Order.objects.filter(user_id=user_id).select_related("customer").only("id", "total")</code></pre>
+
+          <!-- Choose Ours Button -->
+          <button onclick="applyStrategy('ours')" class="cyber-btn w-full mt-4 py-2.5 text-xs text-vermillion border-vermillion/30 hover:border-vermillion">
+            🛡️ FORCE OURS (HEAD)
+          </button>
+        </div>
+
+        <!-- Panel 2: THEIRS (Incoming / Backport) -->
+        <div class="cyber-card p-6 border-l-4 border-l-cyber">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-cyber animate-pulse"></span>
+              <h3 class="font-mono font-bold text-white text-base">THEIRS (Incoming / Bugfix)</h3>
+            </div>
+            <span id="theirsEnvBadge" class="px-2.5 py-1 rounded-md text-xs font-mono font-black bg-cyber/20 text-cyber border border-cyber/40">
+              PRODUCTION VERIFIED
+            </span>
+          </div>
+
+          <!-- Metadata Spec -->
+          <div class="bg-neutral-950 p-4 rounded-xl border border-neutral-800 text-xs font-mono space-y-1.5 mb-4">
+            <div class="flex justify-between"><span class="text-slate-400">Commit SHA:</span> <span id="theirsHash" class="text-cyber">6e1a49f8</span></div>
+            <div class="flex justify-between"><span class="text-slate-400">Author:</span> <span id="theirsAuthor" class="text-slate-300">Django Security ORM Team</span></div>
+            <div class="flex justify-between"><span class="text-slate-400">Test Attestation:</span> <span id="theirsTestBadge" class="text-cyber font-bold">✔ PASSED (98.4% coverage)</span></div>
+            <div class="flex justify-between"><span class="text-slate-400">Origin Link:</span> <span id="theirsOrigin" class="text-cyber-light font-bold">Backport #34567 from main</span></div>
+          </div>
+
+          <!-- Code Box -->
+          <pre class="bg-black p-4 rounded-xl border border-neutral-800 font-mono text-xs text-cyber overflow-x-auto min-h-[140px] leading-relaxed"><code id="codeTheirs">orders = Order.objects.filter(Q(user_id=user_id) & ~Q(status="ARCHIVED")).select_related("customer", "invoice")</code></pre>
+
+          <!-- Choose Theirs Button -->
+          <button onclick="applyStrategy('theirs')" class="cyber-btn w-full mt-4 py-2.5 text-xs text-cyber border-cyber/30 hover:border-cyber">
+            ⭐ ACCEPT THEIRS (TESTED PRODUCTION FIX)
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Synthesis Control Bar -->
+      <div class="cyber-card p-6 bg-gradient-to-r from-neutral-950 via-panel to-neutral-950 border-cyber/30">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-cyber/10 border border-cyber/30 flex items-center justify-center text-xl text-cyber font-mono font-bold">
+              ⚡
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-mono uppercase text-slate-400">RECOMMENDED RESOLUTION:</span>
+                <span id="recommendationStrategy" class="text-cyber font-black font-mono text-sm tracking-wide">THEIRS</span>
+                <span id="confidencePill" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cyber/20 text-cyber border border-cyber/40">94.0% CONFIDENCE</span>
+              </div>
+              <p id="recommendationRationale" class="text-xs text-slate-300 font-mono mt-1">
+                Accepted THEIRS: Verified backport fix (Django #34567) with passing test suite in PRODUCTION.
+              </p>
+            </div>
+          </div>
+
+          <!-- Dynamic Action Buttons -->
+          <div class="flex flex-wrap gap-2">
+            <button onclick="applyStrategy('union')" class="cyber-btn px-4 py-2 text-xs text-white">
+              🧬 AST UNION MERGE
+            </button>
+            <button onclick="applyStrategy('ai')" class="cyber-btn cyber-btn-green px-5 py-2 text-xs font-black">
+              ✨ AI SYNTHESIZE (OPENAI)
+            </button>
+            <button onclick="openExplainModal()" class="cyber-btn px-4 py-2 text-xs text-slate-300">
+              🔎 DEEP AUDIT
+            </button>
+          </div>
+        </div>
+
+        <!-- Output Code Editor -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[11px] font-mono text-slate-400 uppercase tracking-widest">Resolved Source Preview:</span>
+            <div class="flex items-center gap-2">
+              <button onclick="copyResolvedCode()" class="cyber-btn px-3 py-1 text-xs text-slate-300">
+                📋 COPY
+              </button>
+              <button onclick="stageAndSave()" class="cyber-btn cyber-btn-green px-4 py-1 text-xs font-black">
+                💾 STAGE & COMMIT
+              </button>
+            </div>
+          </div>
+          <textarea id="resolvedCodeArea" rows="4" class="cyber-input w-full p-4 text-xs font-mono leading-relaxed border-cyber/40 resize-y"></textarea>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION 3: TOPOLOGY & CROSS-BRANCH LINEAGE GRAPH               -->
+    <!-- ============================================================== -->
+    <section id="section-lineage" class="max-w-7xl mx-auto px-6 py-16 reveal-on-scroll">
+      <div class="text-xs font-mono text-vermillion uppercase tracking-widest font-bold">03 // TOPOLOGY</div>
+      <h2 class="text-3xl md:text-4xl font-black uppercase text-white font-sans mt-1 mb-8">
+        Cross-Branch Lineage Matrix
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Main Branch -->
+        <div class="cyber-card p-6 border-t-2 border-t-white">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-mono text-xs font-bold text-white uppercase">Branch: main</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/10 text-white">UPSTREAM</span>
+          </div>
+          <div class="space-y-3 font-mono text-xs">
+            <div onclick="showCommitDetail('6e1a49f', 'Django ORM Security Fix', 'PROD', 'PASSED')" class="cyber-btn p-3 block text-left">
+              <div class="text-cyber font-bold">commit 6e1a49f</div>
+              <div class="text-slate-300 mt-1">Fix outer join compiler regression (#34567)</div>
+              <div class="mt-2 text-cyber text-[10px]">✔ PASSED (98.4% cov)</div>
+            </div>
+            <div onclick="showCommitDetail('7a82b9e', 'CPython Asyncio Loop', 'PROD', 'PASSED')" class="cyber-btn p-3 block text-left">
+              <div class="text-cyber font-bold">commit 7a82b9e</div>
+              <div class="text-slate-300 mt-1">gh-108278: Disallow nested asyncio loops</div>
+              <div class="mt-2 text-cyber text-[10px]">✔ PASSED (test_asyncio)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stable Maintenance Branch -->
+        <div class="cyber-card p-6 border-t-2 border-t-vermillion">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-mono text-xs font-bold text-vermillion uppercase">Branch: stable/4.2.x</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-vermillion/20 text-vermillion">LTS</span>
+          </div>
+          <div class="space-y-3 font-mono text-xs">
+            <div onclick="showCommitDetail('c4b12e8', 'Django Fast Lookup', 'UAT', 'PASSED')" class="cyber-btn p-3 block text-left">
+              <div class="text-vermillion font-bold">commit c4b12e8</div>
+              <div class="text-slate-300 mt-1">[4.2.x] Hotfix: Preserve indexed lookup</div>
+              <div class="mt-2 text-slate-400 text-[10px]">Tier: UAT Maintenance</div>
+            </div>
+            <div class="p-3 rounded-xl border border-dashed border-vermillion/50 bg-vermillion/10 text-vermillion text-[11px]">
+              ⚠️ Incoming Cherry-Pick from main: 6e1a49f (Conflict Auto-Resolved)
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Production Branch -->
+        <div class="cyber-card p-6 border-t-2 border-t-cyber">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-mono text-xs font-bold text-cyber uppercase">Branch: production</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-cyber/20 text-cyber">LIVE ACTIVE</span>
+          </div>
+          <div class="space-y-3 font-mono text-xs">
+            <div onclick="showCommitDetail('1f8e3a2', 'PCI Idempotent Retry', 'PROD', 'PASSED')" class="cyber-btn p-3 block text-left">
+              <div class="text-cyber font-bold">commit 1f8e3a2</div>
+              <div class="text-slate-300 mt-1">fix(pci): Idempotent exponential retry</div>
+              <div class="mt-2 text-cyber text-[10px]">✔ 100% PCI Compliance Suite</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION 4: TEST ATTESTATION & GIT NOTES EXPLORER               -->
+    <!-- ============================================================== -->
+    <section id="section-attestation" class="max-w-7xl mx-auto px-6 py-16 reveal-on-scroll">
+      <div class="text-xs font-mono text-cyber uppercase tracking-widest font-bold">04 // PROVENANCE STORAGE</div>
+      <h2 class="text-3xl md:text-4xl font-black uppercase text-white font-sans mt-1 mb-8">
+        Git Notes Attestation Ledger
+      </h2>
+
+      <div class="cyber-card p-8">
+        <p class="text-sm font-mono text-slate-300 mb-6">
+          Stores cryptographic test records in <code>refs/notes/test-provenance</code>. Unlike rewriting Git history, Git Notes transfer naturally via standard <code>git push origin "refs/notes/*"</code>.
+        </p>
+
+        <!-- Attestation Input Form -->
+        <form onsubmit="handleAttestSubmit(event)" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div>
+            <label class="text-[11px] font-mono uppercase text-slate-400">Target Commit SHA</label>
+            <input type="text" id="attestCommit" value="HEAD" class="cyber-input w-full mt-1 p-2.5 text-xs" required>
+          </div>
+          <div>
+            <label class="text-[11px] font-mono uppercase text-slate-400">Test Suite Status</label>
+            <select id="attestStatus" class="cyber-input w-full mt-1 p-2.5 text-xs">
+              <option value="passed">✔ PASSED</option>
+              <option value="failed">✘ FAILED</option>
+              <option value="untested">⚠ UNTESTED</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[11px] font-mono uppercase text-slate-400">Deployment Environment</label>
+            <select id="attestEnv" class="cyber-input w-full mt-1 p-2.5 text-xs">
+              <option value="production">PRODUCTION</option>
+              <option value="uat">UAT / Staging</option>
+              <option value="dev">DEVELOPMENT</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[11px] font-mono uppercase text-slate-400">Suite Identifier</label>
+            <input type="text" id="attestSuite" value="security-regression-suite" class="cyber-input w-full mt-1 p-2.5 text-xs">
+          </div>
+          <div>
+            <label class="text-[11px] font-mono uppercase text-slate-400">CI Run URL / Job ID</label>
+            <input type="text" id="attestCiRun" value="github-actions#9821" class="cyber-input w-full mt-1 p-2.5 text-xs">
+          </div>
+          <div>
+            <label class="text-[11px] font-mono uppercase text-slate-400">Coverage Percentage</label>
+            <input type="number" id="attestCoverage" value="99.2" step="0.1" class="cyber-input w-full mt-1 p-2.5 text-xs">
+          </div>
+
+          <div class="md:col-span-3 flex justify-end mt-2">
+            <button type="submit" class="cyber-btn cyber-btn-green px-6 py-3 text-xs font-black">
+              ✍️ RECORD TO REFS/NOTES/TEST-PROVENANCE
+            </button>
+          </div>
+        </form>
+
+        <!-- Live Ledger Stream -->
+        <div id="attestationLedger" class="space-y-3 font-mono text-xs">
+          <div class="p-4 rounded-xl bg-neutral-950 border border-neutral-800 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="text-cyber font-bold">SHA: 1f8e3a2b</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-cyber/20 text-cyber border border-cyber/40">PROD</span>
+              <span class="text-slate-300">pci-compliance-e2e (100% Coverage)</span>
+            </div>
+            <span class="text-cyber font-bold">✔ VERIFIED SIGNATURE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION 5: NORMALIZED GIT PATCH-ID & CHERRY SCANNER            -->
+    <!-- ============================================================== -->
+    <section id="section-patchid" class="max-w-7xl mx-auto px-6 py-16 reveal-on-scroll">
+      <div class="text-xs font-mono text-vermillion uppercase tracking-widest font-bold">05 // CODE EQUIVALENCE</div>
+      <h2 class="text-3xl md:text-4xl font-black uppercase text-white font-sans mt-1 mb-8">
+        Normalized git patch-id Engine
+      </h2>
+
+      <div class="cyber-card p-8 border-cyber/30">
+        <p class="text-sm font-mono text-slate-300 mb-6">
+          How do we identify identical changes when lines have moved or formatting changed? <strong class="text-cyber">git patch-id --stable</strong> creates a normalized diff hash ignoring line offsets and whitespace variations.
+        </p>
+
+        <div class="flex flex-wrap gap-4 mb-6">
+          <input type="text" id="scanCommitInput" value="6e1a49f82d3b5678" class="cyber-input flex-1 p-3 text-xs">
+          <button onclick="handleScanCommit()" class="cyber-btn cyber-btn-green px-6 py-3 text-xs font-black">
+            🔎 SCAN CROSS-BRANCH EQUIVALENCE
+          </button>
+        </div>
+
+        <div class="p-5 rounded-xl bg-black border border-neutral-800 font-mono text-xs space-y-3">
+          <div class="flex justify-between items-center text-slate-400">
+            <span>PATCH-ID (STABLE SHA1):</span>
+            <span class="text-cyber font-bold">89df4a1b0293ecba8475910293847561</span>
+          </div>
+          <div class="p-3 bg-cyber/10 border border-cyber/30 rounded-lg text-cyber flex items-center gap-2">
+            <span>✔</span> Match confirmed on <code>origin/main</code> at commit <code>6e1a49f (Django PR #34567)</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION 6: INTERACTIVE CLI TERMINAL SIMULATOR                  -->
+    <!-- ============================================================== -->
+    <section id="section-terminal" class="max-w-7xl mx-auto px-6 py-16 reveal-on-scroll">
+      <div class="text-xs font-mono text-cyber uppercase tracking-widest font-bold">06 // CLI CONSOLE</div>
+      <h2 class="text-3xl md:text-4xl font-black uppercase text-white font-sans mt-1 mb-8">
+        Native Git Command-Line Simulator
+      </h2>
+
+      <div class="cyber-card p-6 border-vermillion/40 font-mono">
+        <div class="flex items-center justify-between border-b border-neutral-800 pb-3 mb-4">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-vermillion"></span>
+            <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+            <span class="w-3 h-3 rounded-full bg-cyber"></span>
+            <span class="text-xs text-slate-400 ml-2 font-bold">bash - git-provenance v1.0.0</span>
+          </div>
+          <span class="text-[11px] text-cyber">TERMINAL READY</span>
+        </div>
+
+        <div id="terminalScreen" class="bg-black p-4 rounded-xl min-h-[180px] max-h-[300px] overflow-y-auto text-xs space-y-2 border border-neutral-900">
+          <div class="text-slate-400">$ git provenance status</div>
+          <div class="text-cyber">✔ Found 1 conflicted file: myapp/views.py</div>
+          <div class="text-slate-300">  [OURS]   HEAD        UAT        ✔ PASSED (django-tests)</div>
+          <div class="text-cyber">  [THEIRS] 6e1a49f8    PROD       ✔ PASSED (98.4% cov) [Django Fixed #34567]</div>
+          <div class="text-cyber-light font-bold">  Recommendation: THEIRS (94.0% confidence)</div>
+        </div>
+
+        <div class="mt-4 flex flex-wrap gap-2">
+          <button onclick="runTerminalCmd('git prov status')" class="cyber-btn px-3 py-1.5 text-xs text-cyber">
+            $ git prov status
+          </button>
+          <button onclick="runTerminalCmd('git prov resolve --strategy auto')" class="cyber-btn px-3 py-1.5 text-xs text-cyber">
+            $ git prov resolve --strategy auto
+          </button>
+          <button onclick="runTerminalCmd('git prov commit -m &quot;Merge fix&quot;')" class="cyber-btn px-3 py-1.5 text-xs text-vermillion">
+            $ git prov commit
+          </button>
+          <button onclick="runTerminalCmd('pytest tests/ -v')" class="cyber-btn px-3 py-1.5 text-xs text-slate-300">
+            $ pytest tests/ -v
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION 7: BENCHMARKS & PERFORMANCE MATRIX                     -->
+    <!-- ============================================================== -->
+    <section id="section-benchmarks" class="max-w-7xl mx-auto px-6 py-16 reveal-on-scroll">
+      <div class="text-xs font-mono text-vermillion uppercase tracking-widest font-bold">07 // SPEED & ACCURACY</div>
+      <h2 class="text-3xl md:text-4xl font-black uppercase text-white font-sans mt-1 mb-8">
+        Conflict Resolution Benchmarks
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono">
+        <div class="cyber-card p-6 border-l-4 border-l-cyber">
+          <div class="text-xs text-slate-400 uppercase">Deterministic AST Engine</div>
+          <div class="text-3xl font-black text-cyber mt-2">12ms</div>
+          <p class="text-[11px] text-slate-400 mt-2">Zero-dependency pure Python syntax tree analysis and import deduplication.</p>
+        </div>
+        <div class="cyber-card p-6 border-l-4 border-l-white">
+          <div class="text-xs text-slate-400 uppercase">OpenAI GPT-4o-mini (Cloud / Local)</div>
+          <div class="text-3xl font-black text-white mt-2">320ms</div>
+          <p class="text-[11px] text-slate-400 mt-2">3-way merge synthesis preserving original semantic intent with zero hallucinations.</p>
+        </div>
+        <div class="cyber-card p-6 border-l-4 border-l-vermillion">
+          <div class="text-xs text-slate-400 uppercase">Manual Archeology (Legacy)</div>
+          <div class="text-3xl font-black text-vermillion mt-2">~18 mins</div>
+          <p class="text-[11px] text-slate-400 mt-2">Searching Git logs, checking CI runs, and verifying if PR was deployed to prod.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-neutral-900 py-12 text-center text-xs font-mono text-slate-500">
+      <div class="max-w-7xl mx-auto px-6 space-y-2">
+        <p class="text-slate-400">Hacktoberfest 2026 – Hack Day Sonipat | Team GitVeritas</p>
+        <p>Problem 01: Intelligent Git Conflict Resolution with Testing Provenance</p>
+        <p class="text-cyber">MIT License // Standard Git Compatibility</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Modal: Deep Provenance Audit -->
+  <div id="explainModal" class="fixed inset-0 bg-black/85 backdrop-blur-2xl z-50 flex items-center justify-center p-4 hidden">
+    <div class="cyber-card p-8 max-w-2xl w-full border border-cyber/50 space-y-4">
+      <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
+        <span class="font-mono text-sm font-bold text-cyber">PROVENANCE_AUDIT_REPORT // DEEP DIVE</span>
+        <button onclick="closeExplainModal()" class="cyber-btn px-3 py-1 text-xs text-slate-400">✕</button>
+      </div>
+      <div class="space-y-3 font-mono text-xs text-slate-300 leading-relaxed">
+        <div class="p-3 bg-cyber/10 rounded-xl border border-cyber/30">
+          <strong class="text-cyber">Decision Rule: Tested Bugfix Dominance</strong>
+          <p class="mt-1">The incoming branch provides explicit backport trailer annotations for Django bugfix #34567. The commit possesses verified test attestation with 98.4% test coverage in PRODUCTION. Reverting or modifying this code introduces a critical outer-join query regression.</p>
+        </div>
+      </div>
+      <div class="flex justify-end pt-2">
+        <button onclick="closeExplainModal()" class="cyber-btn cyber-btn-green px-6 py-2.5 text-xs font-black">
+          ACKNOWLEDGE & CLOSE
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 cyber-card px-5 py-3 border border-cyber text-white font-mono text-xs hidden flex items-center gap-3 shadow-[0_0_30px_rgba(0,255,102,0.4)]">
+    <span class="text-cyber font-bold">✔</span>
+    <span id="toastMsg">Action executed successfully.</span>
+  </div>
+
+  <!-- Background Canvas Particle Animation Script -->
+  <script>
+    const canvas = document.getElementById('cyberCanvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const particles = [];
+    const count = 45;
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: (Math.random() - 0.5) * 0.8,
+        size: Math.random() * 2 + 1,
+        color: Math.random() > 0.4 ? '#00FF66' : '#FF2A1B'
+      });
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Connect nodes
+      for (let i = 0; i < count; i++) {
+        for (let j = i + 1; j < count; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120) {
+            ctx.strokeStyle = `rgba(0, 255, 102, ${0.15 * (1 - dist / 120)})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw particles
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+
+        ctx.fillStyle = p.color;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
+
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+  </script>
+
+  <!-- Audio Synthesizer & Intro Controller Script -->
+  <script>
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    function playSound(type) {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        const now = audioCtx.currentTime;
+
+        if (type === 'click') {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(750, now);
+          osc.frequency.exponentialRampToValueAtTime(160, now + 0.05);
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.05);
+        } else if (type === 'cyber') {
+          // Cyber chord
+          [440, 554.37, 659.25, 880].forEach((freq, idx) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(freq, now + idx * 0.04);
+            gain.gain.setValueAtTime(0.12, now + idx * 0.04);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.04 + 0.4);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now + idx * 0.04);
+            osc.stop(now + idx * 0.04 + 0.4);
+          });
+        }
+      } catch (e) {}
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      document.getElementById('soundIcon').textContent = soundEnabled ? '🔊' : '🔇';
+      document.getElementById('soundLabel').textContent = soundEnabled ? 'AUDIO FX: ON' : 'AUDIO FX: OFF';
+      if (soundEnabled) playSound('click');
+      showToast(soundEnabled ? 'Audio effects enabled' : 'Audio muted');
+    }
+
+    // 2-Second Intro Transition to Pause Screen
+    window.addEventListener('load', () => {
+      const progressBar = document.getElementById('bootProgressBar');
+      const bootPhase = document.getElementById('introBootPhase');
+      const pausePhase = document.getElementById('pauseScreenPhase');
+      const overlay = document.getElementById('introPauseOverlay');
+      const mainApp = document.getElementById('mainApp');
+
+      // Animate progress bar during 2 seconds
+      setTimeout(() => {
+        progressBar.style.width = '100%';
+      }, 100);
+
+      // At exactly 2.0s, transition to PAUSE SCREEN
+      setTimeout(() => {
+        bootPhase.classList.add('hidden');
+        pausePhase.classList.remove('hidden');
+        playSound('cyber');
+      }, 2000);
+
+      // Click anywhere on overlay to enter studio
+      overlay.addEventListener('click', () => {
+        playSound('cyber');
+        overlay.classList.add('opacity-0', 'scale-105', 'pointer-events-none');
+        mainApp.classList.remove('opacity-0');
+        showToast('SYSTEM ARMED // WELCOME TO GIT-PROVENANCE STUDIO');
+      });
+    });
+
+    // Scroll Visibility Observer (Sections increase visibility as you scroll)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+    function scrollToSection(id) {
+      playSound('click');
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      toastMsg.textContent = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3500);
+    }
+
+    // Scenarios Data
+    const scenarioData = {
+      django: {
+        oursHash: 'c4b12e89', oursAuthor: 'Django Maintainer', oursEnv: 'UAT / STAGING',
+        oursTest: '✔ PASSED (django-tests)', oursMsg: '[4.2.x] Hotfix fast lookup',
+        oursCode: 'orders = Order.objects.filter(user_id=user_id).select_related("customer").only("id", "total")',
+        theirsHash: '6e1a49f8', theirsAuthor: 'Django Security ORM Team', theirsEnv: 'PRODUCTION VERIFIED',
+        theirsTest: '✔ PASSED (98.4% coverage)', theirsOrigin: 'Backport #34567 from main',
+        theirsCode: 'orders = Order.objects.filter(Q(user_id=user_id) & ~Q(status="ARCHIVED")).select_related("customer", "invoice")',
+        recStrat: 'THEIRS', confidence: '94.0%',
+        rationale: 'Accepted THEIRS: Verified backport fix (Django #34567) with passing test suite in PRODUCTION.',
+        resolved: 'orders = Order.objects.filter(Q(user_id=user_id) & ~Q(status="ARCHIVED")).select_related("customer", "invoice")\n'
+      },
+      cpython: {
+        oursHash: '8f12c9a1', oursAuthor: 'CPython Core Dev', oursEnv: 'DEVELOPMENT',
+        oursTest: '⚠ UNTESTED', oursMsg: 'Update 3.12 proactor flags',
+        oursCode: 'self._closed = False\nself._nested_check_enabled = True',
+        theirsHash: '7a82b9e6', theirsAuthor: 'Miss Islington (bot)', theirsEnv: 'PRODUCTION VERIFIED',
+        theirsTest: '✔ PASSED (test_asyncio)', theirsOrigin: 'gh-108278 (cherry-picked)',
+        theirsCode: 'self._closed = False\nif sys.platform == "win32" and getattr(self, "_nested_running", False):\n    raise RuntimeError("Cannot run nested asyncio event loop on Windows")',
+        recStrat: 'THEIRS', confidence: '94.0%',
+        rationale: 'Accepted THEIRS: CPython upstream race-condition fix (gh-108278) verified in test_asyncio.',
+        resolved: 'self._closed = False\nif sys.platform == "win32" and getattr(self, "_nested_running", False):\n    raise RuntimeError("Cannot run nested asyncio event loop on Windows")\n'
+      },
+      enterprise: {
+        oursHash: '1f8e3a2b', oursAuthor: 'SecOps Engineer', oursEnv: 'PRODUCTION',
+        oursTest: '✔ PASSED (100% PCI coverage)', oursMsg: 'fix(pci): Idempotent exponential retry',
+        oursCode: 'for attempt in range(1, 4):\n    try:\n        return self._execute_charge(amount_cents, currency, idempotency_key)\n    except NetworkTimeoutError:\n        time.sleep(2 ** attempt)\nraise PaymentFailure("Max retries exceeded")',
+        theirsHash: '9e8d7c6b', theirsAuthor: 'Junior Dev', theirsEnv: 'UNVERIFIED',
+        theirsTest: '⚠ UNTESTED', theirsOrigin: 'feature/async-webhooks',
+        theirsCode: 'return self._queue_async_charge(amount_cents, currency, idempotency_key)',
+        recStrat: 'OURS', confidence: '92.0%',
+        rationale: 'Preserved OURS: Change has higher deployment provenance (PRODUCTION) with 100% verified PCI suite.',
+        resolved: 'for attempt in range(1, 4):\n    try:\n        return self._execute_charge(amount_cents, currency, idempotency_key)\n    except NetworkTimeoutError:\n        time.sleep(2 ** attempt)\nraise PaymentFailure("Max retries exceeded")\n'
+      },
+      custom: {
+        oursHash: 'a1b2c3d4', oursAuthor: 'Local Dev', oursEnv: 'DEV',
+        oursTest: '✔ PASSED', oursMsg: 'Add local metrics hook',
+        oursCode: 'import metrics\nmetrics.record("init")',
+        theirsHash: 'e5f6a7b8', theirsAuthor: 'Remote Collaborator', theirsEnv: 'STAGING',
+        theirsTest: '✔ PASSED', theirsOrigin: 'PR #12',
+        theirsCode: 'import logging\nlogging.info("Initialized")',
+        recStrat: 'UNION', confidence: '95.0%',
+        rationale: 'Synthesized union via Python AST engine: Deduplicated non-conflicting imports and declarations.',
+        resolved: 'import logging\nimport metrics\nmetrics.record("init")\nlogging.info("Initialized")\n'
+      }
+    };
+
+    function loadScenario(id) {
+      playSound('click');
+      const s = scenarioData[id] || scenarioData.django;
+      document.getElementById('oursHash').textContent = s.oursHash;
+      document.getElementById('oursAuthor').textContent = s.oursAuthor;
+      document.getElementById('oursEnvBadge').textContent = s.oursEnv;
+      document.getElementById('oursTestBadge').textContent = s.oursTest;
+      document.getElementById('oursMsg').textContent = s.oursMsg;
+      document.getElementById('codeOurs').textContent = s.oursCode;
+
+      document.getElementById('theirsHash').textContent = s.theirsHash;
+      document.getElementById('theirsAuthor').textContent = s.theirsAuthor;
+      document.getElementById('theirsEnvBadge').textContent = s.theirsEnv;
+      document.getElementById('theirsTestBadge').textContent = s.theirsTest;
+      document.getElementById('theirsOrigin').textContent = s.theirsOrigin;
+      document.getElementById('codeTheirs').textContent = s.theirsCode;
+
+      document.getElementById('recommendationStrategy').textContent = s.recStrat;
+      document.getElementById('confidencePill').textContent = s.confidence + ' CONFIDENCE';
+      document.getElementById('recommendationRationale').textContent = s.rationale;
+      document.getElementById('resolvedCodeArea').value = s.resolved;
+
+      showToast(`LOADED SCENARIO: ${id.toUpperCase()}`);
+    }
+
+    function applyStrategy(strat) {
+      playSound('click');
+      const curScenario = document.getElementById('scenarioSelect').value;
+      const s = scenarioData[curScenario] || scenarioData.django;
+      const area = document.getElementById('resolvedCodeArea');
+
+      if (strat === 'ours') {
+        area.value = s.oursCode + '\n';
+        showToast('FORCED OURS (HEAD Branch)');
+      } else if (strat === 'theirs') {
+        area.value = s.theirsCode + '\n';
+        showToast('ACCEPTED THEIRS (Production Fix)');
+      } else if (strat === 'union') {
+        area.value = s.oursCode + '\n' + s.theirsCode + '\n';
+        showToast('APPLIED AST SEMANTIC UNION');
+      } else if (strat === 'ai') {
+        playSound('cyber');
+        area.value = s.resolved;
+        showToast('SYNTHESIZED VIA OPENAI GPT-4o-MINI ENGINE');
+      }
+    }
+
+    function stageAndSave() {
+      playSound('cyber');
+      showToast('✔ STAGED TO GIT INDEX & CACHED IN PROVENANCE LEDGER');
+    }
+
+    function copyResolvedCode() {
+      playSound('click');
+      navigator.clipboard.writeText(document.getElementById('resolvedCodeArea').value);
+      showToast('COPIED RESOLVED CODE TO CLIPBOARD');
+    }
+
+    function openExplainModal() {
+      playSound('click');
+      document.getElementById('explainModal').classList.remove('hidden');
+    }
+
+    function closeExplainModal() {
+      playSound('click');
+      document.getElementById('explainModal').classList.add('hidden');
+    }
+
+    function handleAttestSubmit(e) {
+      e.preventDefault();
+      playSound('cyber');
+      const commit = document.getElementById('attestCommit').value;
+      const status = document.getElementById('attestStatus').value.toUpperCase();
+      const env = document.getElementById('attestEnv').value.toUpperCase();
+      const suite = document.getElementById('attestSuite').value;
+
+      const ledger = document.getElementById('attestationLedger');
+      const newCard = document.createElement('div');
+      newCard.className = 'p-4 rounded-xl bg-neutral-950 border border-cyber/50 flex flex-wrap items-center justify-between gap-3 animate-pulse';
+      newCard.innerHTML = `
+        <div class="flex items-center gap-3">
+          <span class="text-cyber font-bold">SHA: ${commit}</span>
+          <span class="px-2 py-0.5 rounded text-[10px] bg-cyber/20 text-cyber border border-cyber/40">${env}</span>
+          <span class="text-slate-300">Suite: ${suite}</span>
+        </div>
+        <span class="text-cyber font-bold">✔ ATTESTED & SIGNED</span>
+      `;
+      ledger.prepend(newCard);
+      showToast(`RECORDED ATTESTATION FOR ${commit}`);
+    }
+
+    function handleScanCommit() {
+      playSound('click');
+      showToast('SCAN COMPLETE: PATCH-ID STABLE MATCH VERIFIED ON ORIGIN/MAIN');
+    }
+
+    function showCommitDetail(hash, desc, env, test) {
+      playSound('click');
+      showToast(`COMMIT ${hash}: ${desc} [${env} | ${test}]`);
+    }
+
+    function runTerminalCmd(cmd) {
+      playSound('click');
+      const screen = document.getElementById('terminalScreen');
+      const prompt = document.createElement('div');
+      prompt.className = 'text-slate-400 mt-2';
+      prompt.textContent = `$ ${cmd}`;
+      screen.appendChild(prompt);
+
+      const resp = document.createElement('div');
+      resp.className = 'text-cyber';
+      if (cmd.includes('resolve')) {
+        resp.textContent = '✔ Auto-resolved 1 conflict hunk using provenance rule: THEIRS (confidence: 94.0%)';
+      } else if (cmd.includes('commit')) {
+        resp.textContent = '✔ Standard Git commit created: [main 9f8a2b1] (Trailers: X-Conflict-Resolved-With: git-provenance v1.0.0)';
+      } else if (cmd.includes('pytest')) {
+        resp.textContent = '================ 20 passed in 0.76s ================';
+      } else {
+        resp.textContent = '✔ Repository status verified. Zero regressions detected.';
+      }
+      screen.appendChild(resp);
+      screen.scrollTop = screen.scrollHeight;
+      showToast(`EXECUTED: ${cmd}`);
+    }
+
+    loadScenario('django');
+  </script>
+</body>
+</html>

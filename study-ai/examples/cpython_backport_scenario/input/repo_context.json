@@ -1,0 +1,23 @@
+{
+  "scenario": "CPython 3.12 Cherry-Pick Backport Conflict",
+  "base_branch": "3.12",
+  "source_branch": "main",
+  "commits": {
+    "HEAD": {
+      "hash": "8f12c9a10123456789abcdef123456789abcdef0",
+      "author": "CPython Core Dev <python-dev@python.org>",
+      "message": "Update 3.12 proactor internal flags",
+      "environment": "DEVELOPMENT",
+      "test_status": "UNTESTED"
+    },
+    "cpython-3.12-backport": {
+      "hash": "7a82b9e6fa436c0a0c441b8a514dcf50db9011f0",
+      "author": "Miss Islington (bot) <miss-islington@python.org>",
+      "message": "[3.12] gh-108278: Disallow nested asyncio event loops on Windows (GH-108300)\n\n(cherry picked from commit 7a82b9e6fa436c0a0c441b8a514dcf50db9011f0)",
+      "environment": "PRODUCTION",
+      "test_status": "PASSED",
+      "suite": "test_asyncio",
+      "coverage": 99.1
+    }
+  }
+}
